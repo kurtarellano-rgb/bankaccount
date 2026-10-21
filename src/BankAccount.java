@@ -11,7 +11,7 @@ public class BankAccount {
    public void deposit(double amount){
         if (isFrozen) {
             System.out.println("The account is frozen!");
-        }  else if (!Double.isFinite(amount) || amount <= 0) {
+        }  else if (!Double.isFinite(amount)) {
         System.out.println("Invalid deposit amount.");
         }  else {
         balance += amount;
