@@ -1,43 +1,33 @@
 
-/** Represents a bank account with deposit, withdrawal, and freeze controls. */
+/**
+ * Represents a bank account with basic transactions.
+ */
 public class BankAccount {
 
     private double balance;
     private boolean isFrozen;
 
+    /**
+     * Initializes the bank account.
+     */
     public BankAccount() {
         balance = 0.0;
         isFrozen = false;
     }
 
+    /**
+     * Deposits money into the account.
+     *
+     * @param amount amount to deposit
+     */
     public void deposit(double amount) {
         if (isFrozen) {
-<<<<<<< HEAD
-            System.out.println("The account is frozen!");
-        } else if (amount<= 0) {
-            System.out.println("Invalid deposit amount.");
-        } else {
-            balance += amount;
-            System.out.printf("Deposited: %.2f%n", amount);
-        }
-   }
-
-   public void withdraw(double amount){
-        if (isFrozen) {
-            System.out.println("The account is frozen!");
-        } else if (amount<= 0 || amount > balance) {
-            System.out.println("Invalid withdrawal amount.");
-        } else {
-            balance -= amount;
-            System.out.printf("Withdrawn: %.2f%n", amount);
-=======
             System.out.println("Account is FROZEN.");
             System.out.println("Unable to transact.");
             return;
->>>>>>> a9b7c2dd70800d35b9705b41f7aeeb825366a70b
         }
 
-        if (amount <= 0) {
+        if (!Double.isFinite(amount) || amount <= 0) {
             System.out.println("Amount deposited: " + amount);
             System.out.println("Invalid amount. Must be greater than 0");
         } else {
@@ -47,38 +37,59 @@ public class BankAccount {
         }
     }
 
-
+    /**
+     * Withdraws money from the account.
+     *
+     * @param amount amount to withdraw
+     */
     public void withdraw(double amount) {
         if (isFrozen) {
             System.out.println("Account is FROZEN.");
             System.out.println("Unable to transact.");
-        } else {
-            System.out.println("Amount withdrawn: " + amount);
+            return;
+        }
 
-            if (!Double.isFinite(amount) || amount <= 0) {
-                System.out.println("Invalid amount. Must be greater than 0");
-            } else if (amount > balance) {
-                System.out.println("Insufficient balance.");
-                System.out.printf("Current balance: %.2f%n", balance);
-            } else {
-                balance -= amount;
-                System.out.printf("Current balance: %.2f%n", balance);
-            }
-            }
+        System.out.println("Amount withdrawn: " + amount);
+
+        if (!Double.isFinite(amount) || amount <= 0) {
+            System.out.println("Invalid amount. Must be greater than 0");
+        } else if (amount > balance) {
+            System.out.println("Insufficient balance.");
+            System.out.printf("Current balance: %.2f%n", balance);
+        } else {
+            balance -= amount;
+            System.out.printf("Current balance: %.2f%n", balance);
+        }
     }
 
+    /**
+     * Returns the account balance.
+     *
+     * @return current balance
+     */
     public double getBalance() {
         return balance;
     }
 
+    /**
+     * Freezes the account.
+     */
     public void freezeAccount() {
         isFrozen = true;
     }
 
+    /**
+     * Unfreezes the account.
+     */
     public void unfreezeAccount() {
         isFrozen = false;
     }
 
+    /**
+     * Checks whether the account is frozen.
+     *
+     * @return true if frozen, otherwise false
+     */
     public boolean isFrozen() {
         return isFrozen;
     }
