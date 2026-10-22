@@ -1,4 +1,7 @@
 
+/**
+ * A bank account that stores savings account owner information.
+ */
 public class SavingsAccount extends BankAccount {
 
     private String ownerName;

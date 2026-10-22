@@ -1,4 +1,5 @@
 
+/** Represents a bank account with deposit, withdrawal, and freeze controls. */
 public class BankAccount {
 
     private double balance;
@@ -9,23 +10,22 @@ public class BankAccount {
         isFrozen = false;
     }
 
- 
-     public void deposit(double amount) {
-          if (isFrozen) {
-               System.out.println("Account is FROZEN.");
-               System.out.println("Unable to transact.");
-               return;
-          }
+    public void deposit(double amount) {
+        if (isFrozen) {
+            System.out.println("Account is FROZEN.");
+            System.out.println("Unable to transact.");
+            return;
+        }
 
-          if (amount <= 0) {
-               System.out.println("Amount deposited: " + amount);
-               System.out.println("Invalid amount. Must be greater than 0");
-          } else {
-               balance += amount;
-               System.out.printf("Amount deposited: %.2f%n", amount);
-               System.out.printf("Current balance: %.2f%n", balance);
-          }
-}
+        if (amount <= 0) {
+            System.out.println("Amount deposited: " + amount);
+            System.out.println("Invalid amount. Must be greater than 0");
+        } else {
+            balance += amount;
+            System.out.printf("Amount deposited: %.2f%n", amount);
+            System.out.printf("Current balance: %.2f%n", balance);
+        }
+    }
 
 
     public void withdraw(double amount) {
@@ -44,7 +44,7 @@ public class BankAccount {
                 balance -= amount;
                 System.out.printf("Current balance: %.2f%n", balance);
             }
-        }
+            }
     }
 
     public double getBalance() {
