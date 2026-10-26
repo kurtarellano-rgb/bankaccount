@@ -19,4 +19,8 @@ public class Transaction {
                ", amount=" + amount +
                ", time_stamp=" + time_stamp + "]";
     }
+
+    public double getAmount() {
+        return amount;
+}
 }
