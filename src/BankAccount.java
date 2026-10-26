@@ -1,4 +1,7 @@
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a bank account with basic transactions.
  */
@@ -6,6 +9,8 @@ public class BankAccount {
 
     private double balance;
     private boolean isFrozen;
+    private List<Transaction> transactionHistory;
+    private String accountName;
 
     /**
      * Initializes the bank account.
@@ -13,12 +18,18 @@ public class BankAccount {
     public BankAccount() {
         balance = 0.0;
         isFrozen = false;
+        transactionHistory = new ArrayList<>();
+        accountName = "";
     }
+
+    public BankAccount(String accountName) {
+        this();
+        this.accountName = accountName;
+}
 
     /**
      * Deposits money into the account.
      *
-     * @param amount amount to deposit
      */
     public void deposit(double amount) {
         if (isFrozen()) {
@@ -32,6 +43,7 @@ public class BankAccount {
             System.out.println("Invalid amount. Must be greater than 0");
         } else {
             balance += amount;
+            transactionHistory.add(new Transaction("Deposit", amount));
             System.out.printf("Amount deposited: %.2f%n", amount);
             printBalance();
         }
@@ -40,7 +52,6 @@ public class BankAccount {
     /**
      * Withdraws money from the account.
      *
-     * @param amount amount to withdraw
      */
     public void withdraw(double amount) {
         if (isFrozen()) {
@@ -57,14 +68,14 @@ public class BankAccount {
             System.out.printf("Insufficient balance. %.2f%n", balance);
         } else {
             balance -= amount;
+            transactionHistory.add(new Transaction("Withdraw", amount));
             printBalance();
         }
     }
 
     /**
      * Print Balance Method
-    */
-
+     */
     public void printBalance() {
         System.out.printf("Current balance: %.2f%n", balance);
     }
@@ -72,10 +83,13 @@ public class BankAccount {
     /**
      * Returns the account balance.
      *
-     * @return current balance
      */
     public double getBalance() {
         return balance;
+    }
+
+    public String getAccountName() {
+        return accountName;
     }
 
     /**
@@ -95,9 +109,16 @@ public class BankAccount {
     /**
      * Checks whether the account is frozen.
      *
-     * @return true if frozen, otherwise false
      */
     public boolean isFrozen() {
         return isFrozen;
+    }
+
+    /**
+     * Returns the transaction history.
+     *
+     */
+    public List<Transaction> getTransactionHistory() {
+        return transactionHistory;
     }
 }
