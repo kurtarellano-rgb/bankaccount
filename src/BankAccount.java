@@ -21,7 +21,7 @@ public class BankAccount {
      * @param amount amount to deposit
      */
     public void deposit(double amount) {
-        if (isFrozen) {
+        if (isFrozen()) {
             System.out.println("Account is FROZEN.");
             System.out.println("Unable to transact.");
             return;
@@ -33,7 +33,7 @@ public class BankAccount {
         } else {
             balance += amount;
             System.out.printf("Amount deposited: %.2f%n", amount);
-            System.out.printf("Current balance: %.2f%n", balance);
+            printBalance();
         }
     }
 
@@ -43,7 +43,7 @@ public class BankAccount {
      * @param amount amount to withdraw
      */
     public void withdraw(double amount) {
-        if (isFrozen) {
+        if (isFrozen()) {
             System.out.println("Account is FROZEN.");
             System.out.println("Unable to transact.");
             return;
@@ -54,12 +54,19 @@ public class BankAccount {
         if (!Double.isFinite(amount) || amount <= 0) {
             System.out.println("Invalid amount. Must be greater than 0");
         } else if (amount > balance) {
-            System.out.println("Insufficient balance.");
-            System.out.printf("Current balance: %.2f%n", balance);
+            System.out.printf("Insufficient balance. %.2f%n", balance);
         } else {
             balance -= amount;
-            System.out.printf("Current balance: %.2f%n", balance);
+            printBalance();
         }
+    }
+
+    /**
+     * Print Balance Method
+    */
+
+    public void printBalance() {
+        System.out.printf("Current balance: %.2f%n", balance);
     }
 
     /**
