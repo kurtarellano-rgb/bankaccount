@@ -5,9 +5,10 @@ class BankAccountTestRunner {
     /** Runs the bank account test cases. */
     public static void main(String[] args) {
 
+
         // //Test case 1
-        System.out.println("EXERCISE 1");
-         BankAccount acc1 = new SavingsAccount("Test0");
+        System.out.println("            EXERCISE 1              ");
+        BankAccount acc1 = new SavingsAccount("Test0");
         System.out.println("Test Case 1");
         System.out.println("Account Owner: "
                         + ((SavingsAccount) acc1).getOwnerName());
@@ -51,27 +52,44 @@ class BankAccountTestRunner {
         acc1.withdraw(100);
         System.out.println();
 
-        // EXERCISE 2 TEST CASE
+        
+        System.out.println("            EXERCISE 2              ");
 
-        System.out.println("Exercise 2");
+        //Test case 1
+        System.out.println("\nTest Case 1: Transaction History");
+        System.out.println("------------------------------------");
 
-       System.out.println("\nTest Case 1: Transaction history");
-            System.out.println(
-                    "Transaction history: "
-                            + acc1.getTransactionHistory());
+        for (Transaction transaction : acc1.getTransactionHistory()) {
+            System.out.println(transaction);
+        }
 
-        System.out.println("\nTest Case 2: Create account manager");
-            BankAccountManager accM1 = new BankAccountManager();
+        //Test case 2
+        System.out.println("\nTest Case 2: Create Account Manager");
+        System.out.println("------------------------------------");
 
-        System.out.println("\nTest Case 3: Add acc1");
-            accM1.addAccount(acc1);
+        BankAccountManager accM1 = new BankAccountManager();
+        System.out.println("Account Manager Created Successfully.");
 
-        System.out.println("\nTest Case 4: Add a new account");
-            accM1.addAccount(new SavingsAccount("Test1"));
+        //Test case 3
+        System.out.println("\nTest Case 3: Add Existing Account");
+        System.out.println("------------------------------------");
 
-        System.out.println("\nTest Case 5: List all accounts");
-            accM1.listAccounts();
-  
+        accM1.addAccount(acc1);
+        System.out.println("Account Test0 Added Successfully.");
 
-    }
+        //Test case 4
+        System.out.println("\nTest Case 4: Add New Account");
+        System.out.println("------------------------------------");
+
+        accM1.addAccount(new SavingsAccount("Test1"));
+        System.out.println("Account Test1 Added Successfully.");
+
+        //Test case 5
+        System.out.println("\nTest Case 5: List All Accounts");
+        System.out.println("------------------------------------");
+
+        accM1.listAccounts();
+
+
+}
 }
