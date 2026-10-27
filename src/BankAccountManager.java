@@ -2,14 +2,17 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
- * Manages bank accounts and assigns unique IDs.
+ * Manages bank accounts.
  */
 public class BankAccountManager implements Bank {
 
     private Map<Integer, BankAccount> accounts;
     private int id;
+    private static final int MAX_ACC = 100;
 
     /**
      * Initializes the account manager.
@@ -21,80 +24,71 @@ public class BankAccountManager implements Bank {
 
     /**
      * Adds an account to the manager.
-     *
      */
     public void addAccount(BankAccount account) {
 
-        if (accounts.size() >= 100) {
+        if (accounts.size() >= MAX_ACC) {
             System.out.println(
-                "Maximum limit of 100 accounts reached.");
+                "Maximum limit of " + MAX_ACC + " accounts reached.");
             return;
         }
 
         accounts.put(id, account);
-
-        System.out.println(
-            "Account added successfully with ID: " + id);
-
         id++;
     }
 
     /**
-     * Returns an account using its ID.
-     *
+     * Returns an account based on its ID.
      */
     public BankAccount getAccount(int id) {
         return accounts.get(id);
     }
 
     /**
-     * Displays all registered bank accounts.
+     * Displays all accounts and their balances.
      */
     public void listAccounts() {
-
-        if (accounts.isEmpty()) {
-            System.out.println("No accounts found.");
-            return;
-        }
-
-        for (Map.Entry<Integer, BankAccount> entry
-                : accounts.entrySet()) {
-
+        for (Map.Entry<Integer, BankAccount> entry : accounts.entrySet()) {
             BankAccount account = entry.getValue();
 
-            System.out.println(
-                "Account ID: " + entry.getKey()
-                + ", Account Name: " + account.getAccountName()
-                + ", Balance: "
-                + String.format("%.2f", account.getBalance())
-            );
+            System.out.println("Account ID: " + entry.getKey());
+            System.out.println("Owner: " + account.getAccountName());
+            System.out.printf("Balance: %.2f%n", account.getBalance());
         }
     }
 
-    /**
-     * Filters transactions at or above an amount.
-     *
+    // EXERCISE 3
 
+    /**
+     * Filters transactions with amounts at or above the given amount.
+     *
      */
     public List<Transaction> filterTransactionsAtOrAbove(
-            double amount, List<Transaction> txList) {
+            double amount, List<Transaction> transactions) {
 
-        return txList.stream()
-                .filter(tx -> tx.getAmount() >= amount)
-                .toList();
+        List<Transaction> filtered = new ArrayList<>();
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getAmount() >= amount) {
+                filtered.add(transaction);
+            }
+        }
+
+        return filtered;
     }
 
     /**
      * Sorts transactions by amount in ascending order.
-     *
-     */
+   */
     public List<Transaction> sortTransactionsByAmount(
-            List<Transaction> txList) {
+            List<Transaction> transactions) {
 
-        return txList.stream()
-                .sorted((tx1, tx2) ->
-                    Double.compare(
-                        tx1.getAmount(), tx2.getAmount()))
-                .toList();
+        List<Transaction> sorted = new ArrayList<>(transactions);
+
+        sorted.sort(
+            Comparator.comparingDouble(Transaction::getAmount)
+        );
+
+        return sorted;
     }
 }
