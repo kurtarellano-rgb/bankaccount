@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 import exception.InvalidAmountException;
@@ -24,16 +25,14 @@ public class BankAccount {
         accountName = "";
     }
 
+
     public BankAccount(String accountName) {
         this();
         this.accountName = accountName;
     }
 
-    /**
-     * Deposits money into the account.
-     */
+  
     public void deposit(double amount) {
-
         try {
             if (isFrozen()) {
                 throw new AccountFrozenException(
@@ -48,7 +47,8 @@ public class BankAccount {
             }
 
             balance += amount;
-            transactionHistory.add(new Transaction("Deposit", amount));
+            transactionHistory.add(
+                new Transaction("Deposit", amount));
             printBalance();
 
         } catch (InvalidAmountException | AccountFrozenException e) {
@@ -56,11 +56,8 @@ public class BankAccount {
         }
     }
 
-    /**
-     * Withdraws money from the account.
-     */
-    public void withdraw(double amount) {
 
+    public void withdraw(double amount) {
         try {
             if (isFrozen()) {
                 throw new AccountFrozenException(
@@ -80,7 +77,8 @@ public class BankAccount {
             }
 
             balance -= amount;
-            transactionHistory.add(new Transaction("Withdraw", amount));
+            transactionHistory.add(
+                new Transaction("Withdraw", amount));
             printBalance();
 
         } catch (InvalidAmountException |
@@ -96,15 +94,13 @@ public class BankAccount {
     }
 
     /**
-     * Print Balance Method
+     * Prints the current balance.
      */
     public void printBalance() {
         System.out.printf("Current balance: %.2f%n", balance);
     }
 
-    /**
-     * Returns the account balance.
-     */
+
     public double getBalance() {
         return balance;
     }
@@ -129,6 +125,7 @@ public class BankAccount {
 
     /**
      * Checks whether the account is frozen.
+     *
      */
     public boolean isFrozen() {
         return isFrozen;
@@ -136,6 +133,7 @@ public class BankAccount {
 
     /**
      * Returns the transaction history.
+     *
      */
     public List<Transaction> getTransactionHistory() {
         return transactionHistory;

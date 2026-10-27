@@ -137,50 +137,61 @@ class BankAccountTestRunner {
 
         // EXERCISE 3 TEST CASES
 
-    System.out.println("\nEXERCISE 3");
+ 
+        // EXERCISE 3 TEST CASES
 
-    BankAccountManager accM3 = new BankAccountManager();
-    BankAccount acc3 = new SavingsAccount("Test3");
-    accM3.addAccount3(acc3);
+        System.out.println("\nEXERCISE 3");
 
-    //Test case 1
-    System.out.println("\nTest Case 1: Deposit negative amount");
-    acc3.deposit(-500);
+        BankAccountManager accM3 = new BankAccountManager();
+        BankAccount acc3 = new SavingsAccount("Test3");
+        accM3.addAccount(acc3);
 
-    //Test case 2
-    System.out.println("\nTest Case 2: Deposit when account is frozen");
-    acc3.freezeAccount();
-    acc3.deposit(11500);
-    acc3.unfreezeAccount();
+        // Prepare account balance and transaction history
+        acc3.deposit(1000.125);
+        acc3.withdraw(500);
 
-    //Test case 3
-    System.out.println("\nTest Case 3: Withdraw negative amount");
-    acc3.withdraw(-100);
+        //Test case 1
+        System.out.println("\nTest Case 1: Deposit negative amount");
+        acc3.deposit(-500);
 
-    //Test case 4
-    System.out.println("\nTest Case 4: Insufficient funds");
-    acc3.withdraw(1500);
+        //Test case 2
+        System.out.println("\nTest Case 2: Deposit when account is frozen");
+        acc3.freezeAccount();
+        acc3.deposit(11500);
+        acc3.unfreezeAccount();
 
-    //Test case 5
-    System.out.println("\nTest Case 5: Withdraw when account is frozen");
-    acc3.freezeAccount();
-    acc3.withdraw(500);
-    acc3.unfreezeAccount();
+        //Test case 3
+        System.out.println("\nTest Case 3: Withdraw negative amount");
+        acc3.withdraw(-100);
 
-    //Test case 6
-    System.out.println("\nTest Case 6: Filter transactions");
-    System.out.println("Filtering transactions at or above 200...");
-    System.out.println(
-        accM3.filterTransactionsAtOrAbove(
-            200, acc3.getTransactionHistory())
-    );
+        //Test case 4
+        System.out.println("\nTest Case 4: Insufficient funds");
+        acc3.withdraw(1500);
 
-    //Test case 7
-    System.out.println("\nTest Case 7: Sort transactions");
-    System.out.println("Sorting transactions by amount...");
-    System.out.println(
-        accM3.sortTransactionsByAmount(
-            acc3.getTransactionHistory())
-    );
+        //Test case 5
+        System.out.println("\nTest Case 5: Withdraw when account is frozen");
+        acc3.freezeAccount();
+        acc3.withdraw(500);
+        acc3.unfreezeAccount();
+
+        //Test case 6
+        System.out.println("\nTest Case 6: Filter transactions");
+        System.out.println("Filtering transactions at or above 200...");
+        System.out.println(
+            accM3.filterTransactionsAtOrAbove(
+                200, acc3.getTransactionHistory())
+        );
+
+        // Add another valid withdrawal for the sorting test
+        acc3.withdraw(100);
+
+        //Test case 7
+        System.out.println("\nTest Case 7: Sort transactions");
+        System.out.println("Sorting transactions by amount...");
+        System.out.println(
+            accM3.sortTransactionsByAmount(
+                acc3.getTransactionHistory())
+        );
+    }
 }
-}
+
