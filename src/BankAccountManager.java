@@ -1,5 +1,8 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Manages bank accounts.
@@ -21,6 +24,7 @@ public class BankAccountManager implements Bank {
     /**
      * Adds an account to the manager.
      */
+ 
     public void addAccount(BankAccount account) {
 
         if (accounts.size() >= MAX_ACC) {
@@ -30,6 +34,10 @@ public class BankAccountManager implements Bank {
         }
 
         accounts.put(id, account);
+
+        System.out.println(
+            "Account added successfully with ID: " + id);
+
         id++;
     }
 
@@ -43,13 +51,59 @@ public class BankAccountManager implements Bank {
     /**
      * Displays all accounts and their balances.
      */
+  
+    /**
+     * Displays all accounts and their balances.
+     */
     public void listAccounts() {
-        for (Map.Entry<Integer, BankAccount> entry : accounts.entrySet()) {
-            BankAccount account = entry.getValue();
 
-            System.out.println("Account ID: " + entry.getKey());
-            System.out.println("Owner: " + account.getAccountName());
-            System.out.printf("Balance: %.2f%n", account.getBalance());
+        for (int accountId = 0; accountId < id; accountId++) {
+            BankAccount account = accounts.get(accountId);
+
+            if (account != null) {
+                System.out.printf(
+                    "Account ID: %d, Account Name: %s, Balance: %.1f%n",
+                    accountId,
+                    account.getAccountName(),
+                    account.getBalance()
+                );
+            }
         }
+    }
+
+
+    /**
+     * Filters transactions with amounts at or above the given amount.
+     *
+     */
+    public List<Transaction> filterTransactionsAtOrAbove(
+            double amount, List<Transaction> transactions) {
+
+        List<Transaction> filtered = new ArrayList<>();
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getAmount() >= amount) {
+                filtered.add(transaction);
+            }
+        }
+
+        return filtered;
+    }
+
+
+    
+    /**
+     * Sorts transactions by amount in ascending order.
+   */
+    public List<Transaction> sortTransactionsByAmount(
+            List<Transaction> transactions) {
+
+        List<Transaction> sorted = new ArrayList<>(transactions);
+
+        sorted.sort(
+            Comparator.comparingDouble(Transaction::getAmount)
+        );
+
+        return sorted;
     }
 }
