@@ -7,7 +7,7 @@ public class SavingsAccount extends BankAccount {
     private String ownerName;
 
     public SavingsAccount(String ownerName) {
-        super();
+        super(ownerName);
         this.ownerName = ownerName;
     }
 
