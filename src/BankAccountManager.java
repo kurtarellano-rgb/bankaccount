@@ -1,55 +1,55 @@
-
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Manages a collection of bank accounts and assigns unique IDs to each account.
+ * Manages bank accounts.
  */
 public class BankAccountManager implements Bank {
 
     private Map<Integer, BankAccount> accounts;
     private int id;
+    private static final int MAX_ACC = 100;
 
-    // Constructor
+    /**
+     * Initializes the account manager.
+     */
     public BankAccountManager() {
         accounts = new HashMap<>();
         id = 0;
     }
 
+    /**
+     * Adds an account to the manager.
+     */
     public void addAccount(BankAccount account) {
 
-        if (accounts.size() >= 100) {
-            System.out.println("Maximum limit of 100 accounts reached.");
+        if (accounts.size() >= MAX_ACC) {
+            System.out.println(
+                "Maximum limit of " + MAX_ACC + " accounts reached.");
             return;
         }
 
         accounts.put(id, account);
-
-        System.out.println("Account added successfully with ID: " + id);
-
         id++;
     }
 
+    /**
+     * Returns an account based on its ID.
+     */
     public BankAccount getAccount(int id) {
         return accounts.get(id);
     }
 
+    /**
+     * Displays all accounts and their balances.
+     */
     public void listAccounts() {
+        for (Map.Entry<Integer, BankAccount> entry : accounts.entrySet()) {
+            BankAccount account = entry.getValue();
 
-        if (accounts.isEmpty()) {
-            System.out.println("No accounts found.");
-            return;
-        }
-
-    for (int i = 0; i < id; i++) {
-        BankAccount account = accounts.get(i);
-        double balance = account.getBalance();
-
-            System.out.println(
-                "Account ID: " + i +
-                ", Account Name: " + account.getAccountName() +
-                ", Balance:  " + String.format("%.2f", balance)
-            );
+            System.out.println("Account ID: " + entry.getKey());
+            System.out.println("Owner: " + account.getAccountName());
+            System.out.printf("Balance: %.2f%n", account.getBalance());
         }
     }
 }
